@@ -1,0 +1,18 @@
+<section id="products">
+  <div class="container">
+    <div class="products-header">
+      @for (product of products; track $index) {
+      <div
+        class="product product-1"
+        [routerLink]="[url + 'viewproduct', product.id]"
+      >
+        <figure>
+          <img [src]="baseUrl + product.filePath" alt="product-image" />
+          <figcaption>{{ product.productName }}</figcaption>
+          <figcaption>{{ product.price | currency : "INR" }}</figcaption>
+        </figure>
+      </div>
+      } @empty { No Product }
+    </div>
+  </div>
+</section>

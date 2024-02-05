@@ -1,0 +1,75 @@
+<header id="nav">
+  <nav>
+    <div class="logo nav-common">
+      <!-- <img
+        #img
+        src="../../../../assets/images/icons8-panda-48.png"
+        alt="Logo"
+      /> -->
+      PANDA
+    </div>
+    <ul class="nav-common">
+      <li
+        class="pointer"
+        routerLink="/customer"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        Home
+      </li>
+      @for (category of categories; track $index) {
+      <li
+        (click)="sharedService.productEventEmitter.emit(category.id)"
+        class="pointer"
+        routerLinkActive="active"
+        routerLink="/customer/products/{{ category.id }}"
+      >
+        {{ category.name }}
+      </li>
+      }
+      <li class="pointer text-dark" (click)="service.logOut()">Logout</li>
+    </ul>
+    <div class="cart nav-icon nav-common">
+      <i
+        class="fa-solid fa-cart-arrow-down pointer"
+        routerLink="/customer/cart"
+        routerLinkActive="active"
+      ></i>
+      <span class="cart-count">
+        {{ cartItems }}
+      </span>
+      <i
+        class="fa fa-solid ms-3 pointer fa-user"
+        routerLink="/customer/profile"
+        routerLinkActive="active"
+      ></i>
+    </div>
+  </nav>
+  <div class="suggestion-box mb-4">
+    <input
+      type="search"
+      class="form-control searchBox"
+      placeholder="Search Products Here"
+      #input
+      (input)="searchProducts(input.value)"
+    />
+    <div class="suggestions">
+      @for (suggestion of suggestions; track $index) {
+      <h5
+        class="ms-2 pointer mt-2"
+        (click)="
+          navigateToProduct(
+            suggestion.categoryId,
+            suggestion.subCategoryId,
+            suggestion.productName,
+            input
+          )
+        "
+      >
+        <i class="fa-solid fa-magnifying-glass me-2"></i>
+        {{ suggestion.productName | titlecase }}
+      </h5>
+      }
+    </div>
+  </div>
+</header>

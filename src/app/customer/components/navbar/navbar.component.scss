@@ -1,0 +1,35 @@
+.logo {
+  font-size: 1.6rem;
+  text-shadow: 4px 4px 3px #e7e9ee;
+}
+img {
+  transition: all 0.5s ease-in-out;
+  cursor: pointer;
+}
+img:hover {
+  transform: rotate(180deg);
+}
+header {
+  position: relative;
+  z-index: 98;
+  height: 15vh;
+  padding: 5px;
+}
+.active {
+  color: #c8ad93;
+}
+
+.searchBox {
+  height: 40px;
+  width: 100%;
+  color: black;
+  border: 0;
+}
+.suggestion-box {
+  width: 50%;
+  margin: auto;
+  height: auto;
+  border: 1px solid #848484;
+  border-radius: 5px;
+  background-color: white;
+}

@@ -1,0 +1,34 @@
+<div class="d-flex justify-content-center align-items-center vh-100">
+  <div class="card m-auto" style="width: 28rem">
+    <form #loginForm ="ngForm" class="card-body" (ngSubmit)="login()">
+      <div class="form-floating mb-3">
+        <input
+          type="email"
+          class="form-control"
+          id="floatingInput"
+          placeholder="name@example.com"
+          name="usernameOrEmail"
+          [(ngModel)]="loginRequest.usernameOrEmail"
+          required
+        />
+        <label for="floatingInput">Email address</label>
+      </div>
+      <div class="form-floating">
+        <input
+          type="password"
+          class="form-control"
+          id="floatingPassword"
+          placeholder="Password"
+          name="password"
+          [(ngModel)]="loginRequest.password"
+          required
+        />
+        <label for="floatingPassword">Password</label>
+      </div>
+      <div class="d-grid mt-3 mb-3">
+        <button class="btn btn-primary" [disabled]="loginForm.invalid">Login</button>
+      </div>
+      <p class="text-primary">Don't have an account? <span class="pointer" [routerLink]="['signup']" routerLinkActive="router-link-active" >Signup</span></p>
+    </form>
+  </div>
+</div>

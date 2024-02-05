@@ -1,0 +1,198 @@
+<section id="services" class="services section-bg">
+  @if (product) {
+  <div class="container my-5">
+    <div class="row">
+      <div class="col-md-5">
+        <div class="main-img">
+          <img
+            class="product-img pointer"
+            [src]="baseUrl + product.files[0].filePath"
+            alt="ProductS"
+            #targetImage
+            data-bs-toggle="modal"
+            data-bs-target="#exampleModal"
+            (click)="getSrc(targetImage.src)"
+          />
+          <div class="row my-3 previews">
+            @for (file of product.files; track $index) {
+            <div class="col-md-3">
+              <img
+                class="w-100 pointer"
+                #sourceImg
+                [src]="baseUrl + file.filePath"
+                alt="Sale"
+                (click)="toggleImage(sourceImg.src, targetImage)"
+              />
+            </div>
+            }
+          </div>
+        </div>
+      </div>
+      <div class="col-md-7">
+        <div class="main-description px-2">
+          <h3 class="category text-bold">{{ product.productName }}</h3>
+          <div class="product-title text-bold my-3">
+            Brand: {{ product.brandName }}
+          </div>
+
+          <div class="price-area my-4">
+            <p class="old-price mb-1">
+              <del></del>
+              <span class="old-price-discount text-danger"
+                >({{ product.off }}% off)</span
+              >
+            </p>
+            <p class="new-price text-bold mb-1">
+              {{ product.price | currency : "INR" }}
+            </p>
+            <p class="text-secondary mb-1">
+              (Additional tax may apply on checkout)
+            </p>
+            @if (product.totalStock<=0) {
+            <p class="text-warning">Out of stock</p>
+            }
+          </div>
+          <div class="sizes">
+            @for (size of product.productSizes; track $index) {
+            <button
+              #btns
+              (click)="selectSize(size.id, $index)"
+              class="btn btn-outline-dark me-3"
+              [class.out-of-stock]="size.quantity === 0"
+              [id]="size.id"
+              [class.active-size]="$index === 0"
+              [disabled]="size.quantity === 0"
+            >
+              {{ size.size }}
+            </button>
+            }
+          </div>
+          <div class="buttons d-flex my-5">
+            <div class="block">
+              <a class="shadow btn custom-btn">Wishlist</a>
+            </div>
+            <div class="block">
+              <button
+                class="shadow btn custom-btn"
+                (click)="addToCart(product.id)"
+              >
+                Add to cart
+              </button>
+            </div>
+
+            <div class="block quantity">
+              <input
+                type="number"
+                class="form-control"
+                id="cart_quantity"
+                value="1"
+                min="0"
+                [max]="product.totalStock"
+                [(ngModel)]="quantity"
+                name="quantity"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="product-details my-4">
+          <p class="details-title text-color mb-1">Product Details</p>
+          <p class="description">{{ product.description }}</p>
+        </div>
+
+        <div class="row questions bg-light p-3">
+          <div class="col-md-1 icon">
+            <i class="fa-brands fa-rocketchat questions-icon"></i>
+          </div>
+          <div class="col-md-11 text">
+            Have a question about our products at E-Store? Feel free to contact
+            our representatives via live chat or email.
+          </div>
+        </div>
+
+        <div class="delivery my-4">
+          <p class="font-weight-bold mb-0">
+            <span><i class="fa-solid fa-truck"></i></span>
+            <b>Delivery done in 3 days from date of purchase</b>
+          </p>
+          <p class="text-secondary">Order now to get this product delivery</p>
+        </div>
+        <div class="delivery-options my-4">
+          <p class="font-weight-bold mb-0">
+            <span><i class="fa-solid fa-filter"></i></span>
+            <b>Delivery options</b>
+          </p>
+          <p class="text-secondary">View delivery options here</p>
+        </div>
+        <button
+          class="btn btn-success"
+          [disabled]="product.totalStock <= 0"
+          (click)="generateOrder()"
+        >
+          Buy Now
+        </button>
+      </div>
+    </div>
+  </div>
+  } @else {
+  <div class="d-flex justify-content-center">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+  }
+</section>
+
+<section class="similar-products">
+  <div class="container">
+    <div class="products-header">
+      <h2>Similar Products</h2>
+      <p>Here is the list of similar products which you selected</p>
+      <div class="d-flex flex-wrap">
+        @for (product of similarProducts; track $index) {
+        <div
+          class="product product-1 pointer me-3"
+          [routerLink]="[url + '/', product.id]"
+        >
+          <figure>
+            <img
+              class="similar-product-img"
+              [src]="baseUrl + product.filePath"
+              alt="product-image"
+            />
+            <figcaption>{{ product.productName }}</figcaption>
+            <figcaption class="mt-2">
+              {{ product.price | currency : "INR" }}
+            </figcaption>
+          </figure>
+        </div>
+        } @empty { No Similar Product }
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <img class="zoom" src="{{ src }}" alt="" />
+      </div>
+    </div>
+  </div>
+</div>

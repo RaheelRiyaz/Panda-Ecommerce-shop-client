@@ -1,0 +1,54 @@
+@if (subcategories.length>0) {
+<nav>
+  <ul class="d-flex justify-content-center align-items-center p-3">
+    @for (subcategory of subcategories; track $index) {
+    <li
+      class="pointer me-5 subcategory"
+      routerLink="subcategories/{{ subcategory.id }}"
+      (click)="showFilterRange()"
+      (click)="sharedService.subcategoryEventEmitter.emit(subcategory.id)"
+    >
+      <img [src]="baseUrl + subcategory.filePath" alt="" />
+      <p class="text-dark text-center">{{ subcategory.name }}</p>
+    </li>
+    }
+    <!-- @if (showFilter) {
+        <li>
+
+      <div>
+        <small class="fw-bold">Filter by price</small>
+        <div class="d-flex gap-2">
+          <label for="customRange1" class="form-label">Min</label>
+          <input
+            type="range"
+            class="form-range w-60"
+            id="customRange1"
+            value="0"
+            min="100"
+            max="10000"
+            #Min
+            (change)="filterByPrice(Min.value, Max.value)"
+          />
+          <small>{{Min.value | currency:"INR"}}</small>
+        </div>
+        <div class="d-flex gap-2">
+          <label for="customRange2" class="form-label">Max</label>
+          <input
+            type="range"
+            class="form-range w-60"
+            id="customRange2"
+            value="0"
+            min="100"
+            max="100000"
+            #Max
+            (change)="filterByPrice(Min.value, Max.value)"
+          />
+          <small>{{Max.value | currency:"INR"}}</small>
+        </div>
+      </div>
+    </li>
+  } -->
+  </ul>
+</nav>
+}
+<router-outlet></router-outlet>

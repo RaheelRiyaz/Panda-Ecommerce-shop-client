@@ -1,0 +1,54 @@
+<div class="d-flex justify-content-center align-items-center flex-wrap">
+  <div
+    routerLink="/customer/profile/add_address"
+    class="add d-flex justify-content-center me-2 mb-2 align-items-center pointer"
+    style="width: 18rem; height: 13rem; border-style: dotted !important"
+  >
+    <div
+      class="card-body d-flex justify-content-center align-items-center flex-column"
+    >
+      <i class="fa-solid fa-plus"></i>
+      <p>Add Address</p>
+    </div>
+  </div>
+
+  @for (address of addresses; track $index) {
+  <div class="card me-2 mb-2" style="width: 20rem; height: auto">
+    <div class="card-body">
+      <h5 class="card-title">{{ address.fullName }}</h5>
+      <h6 class="card-subtitle mb-2 text-body-secondary">
+        {{ address.houseNo }}
+      </h6>
+      <h6 class="card-subtitle mb-2 text-body-secondary">
+        {{ address.landMark }}
+      </h6>
+      <h6 class="card-subtitle mb-2 text-body-secondary">{{ address.city }}</h6>
+      <h6 class="card-subtitle mb-2 text-body-secondary">
+        {{ address.street }}
+      </h6>
+      <h6 class="card-subtitle mb-2 text-body-secondary">
+        {{ address.country }}
+      </h6>
+      <h6 class="card-subtitle mb-2 text-body-secondary">
+        {{ address.state }} ,{{ address.pincode }}
+      </h6>
+      <h6 class="card-subtitle mb-2 text-body-secondary">
+        {{ address.contactNo }}
+      </h6>
+
+      <div class="btns d-flex justify-content-start">
+        <a>Edit</a>
+        <a class="ms-3" (click)="removeAddress(address.id, address.isDefault)"
+          >Remove</a
+        >
+        <a
+          class="ms-3"
+          [class.collapse]="address.isDefault"
+          (click)="makeAddressAsDefault(address.id)"
+          >Set as default</a
+        >
+      </div>
+    </div>
+  </div>
+  }
+</div>

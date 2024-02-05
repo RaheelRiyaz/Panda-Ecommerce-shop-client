@@ -1,0 +1,73 @@
+<div class="container mt-1">
+  <div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+      <div class="col-md-9">
+        <div class="ibox">
+          <div class="ibox-title">
+            <span class="pull-right"
+              >(<strong>{{ cartItems.cartItems.length }}</strong
+              >) items</span
+            >
+            <h5>Items in your cart</h5>
+          </div>
+          @for (cart of cartItems.cartItems; track $index) {
+          <div class="ibox-content">
+            <div class="table-responsive">
+              <table class="table shoping-cart-table">
+                <tbody>
+                  <tr>
+                    <td width="90">
+                      <img src="{{ baseUrl + cart.filePath }}" alt="" />
+                    </td>
+                    <td class="desc">
+                      <h3>
+                        <a href="#" class="text-navy">
+                          {{ cart.brandName }}
+                        </a>
+                      </h3>
+                      <p class="small">
+                        {{ cart.description }}
+                      </p>
+                      <div class="m-t-sm pointer">
+                        <a class="text-muted" (click)="removeFromCart(cart.id)"
+                          ><i class="fa fa-trash"></i> Remove item</a
+                        >
+                      </div>
+                    </td>
+
+                    <td>
+                      {{ cart.productPrice | currency : "INR" }}
+                    </td>
+                    <td width="65">
+                      <input
+                        type="number"
+                        class="form-control"
+                        #input
+                        min="1"
+                        name="quantity"
+                        (input)="updateCart(input.value, cart.productId)"
+                        [(ngModel)]="cart.quantity"
+                      />
+                    </td>
+                    <td>
+                      <h4>{{ cart.total | currency : "INR" }}</h4>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          }
+          <div class="ibox-content d-flex justify-content-end">
+            <button class="btn btn-primary pull-right" disabled>
+              Total: {{ cartItems.subTotal | currency : "INR" }}
+            </button>
+            <!-- <button class="btn btn-white">
+              <i class="fa fa-arrow-left"></i> Continue shopping
+            </button> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

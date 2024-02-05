@@ -1,0 +1,198 @@
+@if (orderDetails) {
+<div class="d-flex justify-content-between checkout">
+  <div class="left p-2">
+    <div
+      class="address d-flex justify-content-between"
+      [class.hide]="showAddresses"
+    >
+      <div class="card" style="width: 14rem; border: 0">
+        <div class="card-body">
+          <h5 class="card-title fw-bold">1 Delivery Address</h5>
+        </div>
+      </div>
+      <div class="card" style="width: 16rem; border: 0">
+        <div class="card-body">
+          <h6 class="card-title">{{ orderDetails.fullName }}</h6>
+          <h6 class="card-title">{{ orderDetails.houseNo }}</h6>
+          <h6 class="card-title">
+            {{ orderDetails.street }} {{ orderDetails.city }}
+          </h6>
+          <h6 class="card-title">
+            {{ orderDetails.city | uppercase }},
+            {{ orderDetails.state | uppercase }} {{ orderDetails.pincode }}
+          </h6>
+        </div>
+      </div>
+      <div class="card" style="width: 7rem; border: 0">
+        <div class="card-body">
+          <p
+            class="card-title text-end text-primary pointer"
+            (click)="showAddresses = true"
+          >
+            Change
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="addresses" [class.hide]="!showAddresses">
+      <h5
+        class="ms-3 fw-bold d-flex justify-content-between"
+        style="color: #c45500 !important"
+      >
+        1 Select a delivery address
+        <button class="btn btn-sm btn-light" (click)="showAddresses = false">
+          Close
+        </button>
+      </h5>
+      <div class="card ms-5" style="width: 90%">
+        <div class="card-body">
+          <h5 class="card-title">Your addresses</h5>
+          <hr />
+
+          @for (address of addresses; track $index) {
+          <div class="form-check mt-2 d-flex ms-2">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="flexRadioDefault"
+              id="flexRadioDefault1"
+              [checked]="address.isDefault"
+              
+            />
+            <label class="form-check-label ms-2" for="flexRadioDefault1">
+              <strong>{{ address.fullName }}</strong
+              >, {{ address.houseNo }} {{ address.street }},
+              {{ address.city }} ,{{ address.state | uppercase }} ,
+              {{ address.pincode }}, {{ address.country | titlecase }}
+            </label>
+          </div>
+          }
+          <button class="btn btn-light btn-sm mt-3" routerLink="/customer/profile/add_address">
+            <i class="fa fa-solid fa-plus"></i> Add a new address
+          </button>
+        </div>
+      </div>
+    </div>
+    <hr />
+    <div class="payment">
+      <h5 class="ms-3 fw-bold" style="color: #c45500 !important">
+        2 Select a payment method
+      </h5>
+      <div class="card m-auto" style="width: 90%">
+        <div class="card-body">
+          <h6 class="card-title fw-bold">Your available balance</h6>
+          <hr />
+          <div
+            class="d-flex justify-content-center align-items-center"
+            style="width: 40%"
+          >
+            <i class="fa fa-solid fa-plus me-2"></i>
+            <input type="text" class="form-control" placeholder="Enter Code" />
+            <button class="btn btn-sm btn-light ms-2">Apply</button>
+          </div>
+          <h6 class="card-title fw-bold mt-2">Another payment method</h6>
+          <div class="form-check mt-2">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="flexRadioDefault"
+              id="flexRadioDefault1"
+            />
+            <label class="form-check-label" for="flexRadioDefault1">
+              Credit or debit card
+            </label>
+          </div>
+          <div class="form-check mt-2">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="flexRadioDefault"
+              id="flexRadioDefault2"
+            />
+            <label class="form-check-label" for="flexRadioDefault2">
+              Net banking
+            </label>
+          </div>
+          <div class="form-check mt-2">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="flexRadioDefault"
+              id="flexRadioDefault1"
+            />
+            <label class="form-check-label" for="flexRadioDefault1">
+              Other UPI Apps
+            </label>
+          </div>
+          <div class="form-check mt-2">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="flexRadioDefault"
+              id="flexRadioDefault2"
+              [disabled]="!orderDetails.COD"
+            />
+            <label class="form-check-label" for="flexRadioDefault2">
+              Cash on Delivery/Pay on Delivery
+            </label>
+          </div>
+        </div>
+      </div>
+      <hr />
+      <h5 class="card-subtitle mb-2 text-body-secondary fw-bold ms-4">
+        3 Offers
+      </h5>
+      <hr />
+      <h5 class="card-subtitle mb-2 text-body-secondary fw-bold ms-4">
+        4 Items and Delivery
+      </h5>
+      <hr class="bold-line" />
+      <div class="about">
+        <p>Need help? Check our help pages or contact us</p>
+        <p>
+          When your order is placed, we'll send you an e-mail message
+          acknowledging receipt of your order. If you choose to pay using an
+          electronic payment method (credit card, debit card or net banking),
+          you will be directed to your bank's website to complete your payment.
+          Your contract to purchase an item will not be complete until we
+          receive your electronic payment and dispatch your item. If you choose
+          to pay using Pay on Delivery (POD), you can pay using cash/card/net
+          banking when you receive your item.
+        </p>
+        <p>See Amazon.in's Return Policy.</p>
+        <p>
+          Need to add more items to your order? Continue shopping on the
+          Amazon.in homepage.
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="right">
+    <div class="card mt-3" style="width: 18rem">
+      <div
+        class="card-body d-flex justify-content-center align-items-center flex-wrap"
+      >
+        <div
+          class="d-flex justify-content-center align-items-center flex-column"
+        >
+          <button class="btn btn-warning">Use this payment method</button>
+          <p class="card-text fs-sm mt-2">
+            Choose a payment method to continue checking out. You will still
+            have a chance to review and edit your order before it is final.
+          </p>
+        </div>
+        <div class="d-flex order-summary flex-wrap w-100 flex-column">
+          <h5 class="fw-bold text-start mt-2">Order Summary</h5>
+          <p>Items: {{ orderDetails.quantity }}</p>
+          <p>Price: {{ orderDetails.price | currency : "INR" }}</p>
+          <p>Delivery: --</p>
+          <hr />
+        </div>
+        <h6 class="text-danger fw-bold text-start">
+          Order Total:-{{ orderDetails.subTotal | currency : "INR" }}
+        </h6>
+      </div>
+    </div>
+  </div>
+</div>
+} @else { Failed to create a checkout for your order please try later }

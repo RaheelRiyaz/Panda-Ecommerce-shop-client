@@ -1,0 +1,145 @@
+<div class="card" style="width: 100%">
+  <form #addressForm="ngForm" class="card-body">
+    <div class="flex-wrap mb-2 d-flex justify-content-between w-100">
+      <div class="form-floating">
+        <select
+          #country
+          name="countryId"
+          [(ngModel)]="addRessRequest.countryId"
+          required
+          (change)="getStates(country.value)"
+          class="form-select form-select-sm"
+          aria-label="Small select example"
+        >
+          <option selected value="" disabled>Select Country</option>
+          @for (country of countriesResponse; track $index) {
+          <option value="{{ country.id }}">{{ country.name }}</option>
+          }
+        </select>
+      </div>
+      <div class="form-floating">
+        <input
+          type="text"
+          class="form-control"
+          id="landmark"
+          placeholder="Landmark"
+          name="landMark"
+          [(ngModel)]="addRessRequest.landMark"
+          required
+        />
+        <label for="landmark">Landmark</label>
+      </div>
+    </div>
+    <div class="flex-wrap d-flex justify-content-between w-100">
+      <div class="form-floating mb-3">
+        <input
+          type="text"
+          class="form-control"
+          id="city"
+          placeholder="City"
+          name="city"
+          [(ngModel)]="addRessRequest.city"
+          required
+        />
+        <label for="city">City</label>
+      </div>
+      <div class="form-floating">
+        <input
+          type="text"
+          class="form-control"
+          id="street"
+          placeholder="Street"
+          name="street"
+          [(ngModel)]="addRessRequest.street"
+          required
+        />
+        <label for="street">Street</label>
+      </div>
+    </div>
+    <div class="flex-wrap d-flex justify-content-between w-100">
+      <div class="form-floating mb-3">
+        <input
+          type="text"
+          class="form-control"
+          id="houseNo"
+          placeholder="Houseno"
+          name="houseNo"
+          [(ngModel)]="addRessRequest.houseNo"
+          required
+        />
+        <label for="street">Houseno</label>
+      </div>
+      <div class="form-floating">
+        <input
+          type="text"
+          class="form-control"
+          id="contactNo"
+          placeholder="Contact"
+          name="contactNo"
+          [(ngModel)]="addRessRequest.contactNo"
+          required
+        />
+        <label for="street">Contact</label>
+      </div>
+    </div>
+    <div class="flex-wrap d-flex justify-content-between w-100">
+      <div class="form-floating mb-3">
+        <input
+          type="text"
+          class="form-control"
+          id="fullName"
+          placeholder="Fullname"
+          name="fullName"
+          [(ngModel)]="addRessRequest.fullName"
+          required
+        />
+        <label for="street">Fullname</label>
+      </div>
+      <div class="form-floating" [class.collapse]="hideStates">
+        <select
+          class="form-select form-select-sm"
+          aria-label="Small select example"
+          name="stateId"
+          [(ngModel)]="addRessRequest.stateId"
+          required
+        >
+          <option selected value="" disabled>Select State</option>
+          @for (state of stateResponse; track $index) {
+          <option value="{{ state.id }}">{{ state.name }}</option>
+          }
+        </select>
+      </div>
+    </div>
+    <div class="flex-wrap d-flex justify-content-between w-50">
+      <input
+        type="number"
+        class="form-control"
+        id="pincode"
+        placeholder="Pincode"
+        name="pincode"
+        [(ngModel)]="addRessRequest.pincode"
+        required
+      />
+    </div>
+    <div class="mt-2 form-check">
+      <input
+        class="form-check-input"
+        name="isDefault"
+        type="checkbox"
+        value=""
+        id="flexCheckChecked"
+        [(ngModel)]="addRessRequest.isDefault"
+      />
+      <label class="form-check-label" for="flexCheckChecked">
+        Make this my default address
+      </label>
+    </div>
+    <button
+      class="btn btn-success mt-2"
+      [disabled]="addressForm.invalid"
+      (click)="addAddress()"
+    >
+      Add Address
+    </button>
+  </form>
+</div>

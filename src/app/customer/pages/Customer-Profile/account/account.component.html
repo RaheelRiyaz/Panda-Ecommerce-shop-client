@@ -1,0 +1,65 @@
+<div
+  class="alert alert-info pointer"
+  data-bs-toggle="modal"
+  data-bs-target="#exampleModal"
+>
+  <i class="fa fa-solid fa-user me-2"></i> Change Password
+</div>
+
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <form #changePasswordForm="ngForm" class="modal-body">
+        <div class="form-group mt-2">
+          <input
+            type="text"
+            required
+            [(ngModel)]="changePasswordRequest.oldPassword"
+            class="form-control"
+            placeholder="Old Password"
+            id="oldPassword"
+            name="oldPassword"
+            #oldPassword="ngModel"
+            [class.is-invalid]="oldPassword.touched && oldPassword.invalid"
+          />
+        </div>
+        <div class="form-group mt-4">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="New Password"
+            id="newPassword"
+            name="newPassword"
+            required
+            [(ngModel)]="changePasswordRequest.newPassword"
+            #newPassword="ngModel"
+            [class.is-invalid]="newPassword.touched && newPassword.invalid"
+          />
+        </div>
+        <div class="d-grid mt-3">
+          <button
+            class="btn btn-success"
+            [disabled]="changePasswordForm.invalid"
+            (click)="saveChanges()"
+          >
+            Save Changes
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

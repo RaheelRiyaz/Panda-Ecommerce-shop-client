@@ -1,0 +1,42 @@
+nav {
+  height: 14vh;
+  overflow: auto;
+  scroll-snap-type: x mandory;
+  // gap: 10px;
+  overflow-y: hidden;
+  background-color: #f9f9f9;
+}
+nav img {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  transition: all 0.2s ease-in-out;
+}
+li {
+  list-style: none;
+}
+nav img:hover {
+  rotate: 10deg;
+}
+.subcategory {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.searchBox {
+  width: 50%;
+  margin: 10px auto;
+  position: relative;
+}
+.suggestions {
+  width: 50%;
+  margin: auto;
+  position: relative;
+  display: block;
+  border-top: 0;
+  border-top-right-radius: 0;
+  border-top-left-radius: 0;
+  bottom: 12px;
+}
